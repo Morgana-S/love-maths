@@ -27,11 +27,22 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    if (gameType === "addition") {
-        displayAdditionQuestion(num1, num2);
-    } else {
-        alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gameType}. Aborting!`;
+    switch(gameType){
+        case 'addition':
+            displayAdditionQuestion(num1, num2);
+            break;
+        case 'multiply':
+            displayMultiplyQuestion(num1, num2);
+            break;
+        case 'subtract':
+            displaySubtractQuestion(num1, num2);
+            break;
+        case 'division':
+            displayDivisionQuestion(num1, num2);
+            break;
+        default:
+            alert(`Unknown game type: ${gameType}`);
+            throw `Unknown game type: ${gameType}. Aborting!`;
     }
     
 }
@@ -58,12 +69,31 @@ function calculateCorrectAnswer(){
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById('operator').innerText;
 
+    // switch(operator){
+    //     case '+':
+    //         return [operand1 + operand2, "addition"];
+    //         break;
+    //     case 'x':
+    //         return [operand1 * operand2, "multiply"];
+    //         break;
+    //     case '-':
+    //         return [operand1 - operand2, "subtract"];
+    //         break;
+    //     case '/':
+    //         return [operand1 / operand2, "division"];
+    //         break:
+    //     default:
+    //         alert(`Unknown operator: ${operator}`);
+    //         throw `Unknown operator: ${operator}. Aborting!`;
+    // }
+
     if (operator === '+') {
         return [operand1 + operand2, "addition"];
     } else {
-        alert(`Unimplemented operator ${operator}`);
-        throw `Unimplemented operator ${operator}. Aborting!`;
+        alert(`Unknown operator: ${operator}`);
+            throw `Unknown operator: ${operator}. Aborting!`;
     }
+   
 }
 
 /**
@@ -95,7 +125,7 @@ function displayAdditionQuestion(operand1, operand2){
 /**
  * Displays the subtraction operator between the two operands when called.
  */
-function displaySubtractQuestion(){
+function displaySubtractQuestion(operand1, operand2){
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = '-';
@@ -105,16 +135,16 @@ function displaySubtractQuestion(){
 /**
  * Displays the multiplication operator between the two operands when called.
  */
-function displayMultiplyQuestion(){
+function displayMultiplyQuestion(operand1, operand2){
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
-    document.getElementById('operator').textContent = '-';
+    document.getElementById('operator').textContent = 'x';
 }
 
 /**
  * Displays the division operator between the two operands when called.
  */
-function displayDivideQuestion(){
+function displayDivisionQuestion(operand1, operand2){
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = '/';
