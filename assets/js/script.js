@@ -29,7 +29,6 @@ document.getElementById('answer-box').addEventListener('keydown', function(event
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
-
     document.getElementById('answer-box').value = '';
     document.getElementById('answer-box').focus();
     // Creates two random numbers between 1 and 25
@@ -78,25 +77,6 @@ function calculateCorrectAnswer(){
     let operand1 = parseInt(document.getElementById('operand1').innerText);
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById('operator').innerText;
-
-    // switch(operator){
-    //     case '+':
-    //         return [operand1 + operand2, "addition"];
-    //         break;
-    //     case 'x':
-    //         return [operand1 * operand2, "multiply"];
-    //         break;
-    //     case '-':
-    //         return [operand1 - operand2, "subtract"];
-    //         break;
-    //     case '/':
-    //         return [operand1 / operand2, "division"];
-    //         break:
-    //     default:
-    //         alert(`Unknown operator: ${operator}`);
-    //         throw `Unknown operator: ${operator}. Aborting!`;
-    // }
-
     if (operator === '+') {
         return [operand1 + operand2, "addition"];
     } else if (operator === 'x') {
