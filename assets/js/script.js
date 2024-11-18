@@ -18,11 +18,20 @@ document.addEventListener("DOMContentLoaded", function() {
     runGame("addition");
 })
 
+document.getElementById('answer-box').addEventListener('keydown', function(event){
+    if (event.key === 'Enter') {
+        checkAnswer();
+    }
+})
+
 /**
  * The main game "loop", called when the script is first loaded
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+
+    document.getElementById('answer-box').value = '';
+    document.getElementById('answer-box').focus();
     // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
@@ -62,6 +71,7 @@ function checkAnswer(){
         alert(`Sorry, you answered ${userAnswer} and the correct answer is ${calculatedAnswer[0]}.`);
         incrementWrongAnswer();
     }
+    runGame(calculatedAnswer[1]);
 }
 
 function calculateCorrectAnswer(){
@@ -89,6 +99,12 @@ function calculateCorrectAnswer(){
 
     if (operator === '+') {
         return [operand1 + operand2, "addition"];
+    } else if (operator === 'x') {
+        return [operand1 * operand2, "multiply"];
+    } else if (operator === '-') {
+        return [operand1 - operand2, "subtract"];
+    } else if (operator === '/') {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unknown operator: ${operator}`);
             throw `Unknown operator: ${operator}. Aborting!`;
@@ -126,8 +142,8 @@ function displayAdditionQuestion(operand1, operand2){
  * Displays the subtraction operator between the two operands when called.
  */
 function displaySubtractQuestion(operand1, operand2){
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').textContent = '-';
 
 }
@@ -148,4 +164,13 @@ function displayDivisionQuestion(operand1, operand2){
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = '/';
+    if (operand1 % operand2 === 0 && operand1 > operand2) {
+        operand1 = document.getElementById('operand1').textContent;
+        operand2 = document.getElementById('operand2').textContent;
+    } else if(operand2 % operand1 === 0 && operand1 > operand2) {
+        operand1 = document.getElementById('operand2').textContent;
+        operand2 = document.getElementById('operand1').textContent;
+    } else {
+        runGame("division");
+    }
 }
